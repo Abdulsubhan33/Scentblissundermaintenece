@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScentBliss | Luxury Perfumes Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Lora:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-dark: #0a0a0a;
+    --accent-gold: #d4af37;
+    --accent-light: #e8d5b0;
+    --text-light: #f5efe6;
+    --white: #ffffff;
+    --success: #4caf50;
+    --error: #f44336;
+    --overlay-dark: rgba(10, 10, 10, 0.95);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    width: 100%;
+  }
+
+  body {
+    background: var(--primary-dark);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Background animated orbs */
+  .bg-orbs {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.12;
+    animation: float 15s ease-in-out infinite;
+  }
+
+  .bg-orb-1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, #d4af37, transparent);
+    top: -200px;
+    left: -150px;
+    animation-delay: 0s;
+  }
+
+  .bg-orb-2 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #8b6914, transparent);
+    bottom: -100px;
+    right: -100px;
+    animation-delay: 5s;
+  }
+
+  .bg-orb-3 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #d4af37, transparent);
+    top: 40%;
+    right: 10%;
+    animation-delay: 3s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -30px) scale(1.1); }
+  }
+
+  /* Grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Main content wrapper */
+  .wrapper {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    padding-bottom: 120px;
+  }
+
+  /* Header/Logo section */
+  .header {
+    text-align: center;
+    margin-bottom: 60px;
+    animation: slideDown 0.8s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .logo-container {
+    margin-bottom: 24px;
+  }
+
+  .logo-image {
+    max-width: 120px;
+    height: auto;
+    opacity: 0.95;
+    filter: brightness(1.1);
+  }
+
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 8vw, 64px);
+    font-weight: 700;
+    letter-spacing: 6px;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    margin: 16px 0 8px;
+    line-height: 1.1;
+  }
+
+  .brand-tagline {
+    font-family: 'Lora', serif;
+    font-size: clamp(14px, 3vw, 18px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--accent-light);
+    opacity: 0.75;
+    letter-spacing: 2px;
+  }
+
+  /* Divider */
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    margin: 36px auto;
+    animation: slideDown 0.8s ease 0.2s forwards;
+    opacity: 0;
+  }
+
+  /* Main headline section */
+  .headline-section {
+    text-align: center;
+    max-width: 700px;
+    margin-bottom: 50px;
+    animation: slideDown 0.8s ease 0.3s forwards;
+    opacity: 0;
+  }
+
+  .status-badge {
+    display: inline-block;
+    border: 1.5px solid var(--accent-gold);
+    color: var(--accent-gold);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 8px 24px;
+    margin-bottom: 30px;
+    transition: var(--transition);
+  }
+
+  .status-badge:hover {
+    background: rgba(212, 175, 55, 0.1);
+  }
+
+  .main-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 9vw, 72px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+  }
+
+  .main-headline em {
+    font-style: italic;
+    color: var(--accent-gold);
+    font-weight: 500;
+  }
+
+  .subheadline {
+    font-family: 'Lora', serif;
+    font-size: clamp(18px, 4vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--accent-light);
+    opacity: 0.8;
+    margin-bottom: 24px;
+  }
+
+  .description {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text-light);
+    opacity: 0.7;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* Signature scents section */
+  .scents-section {
+    margin-bottom: 60px;
+    animation: slideDown 0.8s ease 0.4s forwards;
+    opacity: 0;
+  }
+
+  .scents-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    opacity: 0.6;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+
+  .scents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 32px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .scent-item {
+    text-align: center;
+    padding: 24px;
+    border-radius: 12px;
+    transition: var(--transition);
+    cursor: pointer;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+  }
+
+  .scent-item:hover {
+    background: rgba(212, 175, 55, 0.12);
+    transform: translateY(-6px);
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: 0 12px 32px rgba(212, 175, 55, 0.15);
+  }
+
+  .scent-image {
+    width: 100%;
+    max-width: 200px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 0 auto 20px;
+    display: block;
+    transition: var(--transition);
+  }
+
+  .scent-item:hover .scent-image {
+    transform: scale(1.05);
+  }
+
+  .scent-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    margin: 0 auto 12px;
+    animation: pulse 2.5s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+  }
+
+  .scent-item:nth-child(2) .scent-dot {
+    animation-delay: 0.5s;
+  }
+
+  .scent-item:nth-child(3) .scent-dot {
+    animation-delay: 1s;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.6; }
+  }
+
+  .scent-name {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .scent-description {
+    font-size: 12px;
+    color: var(--accent-light);
+    opacity: 0.6;
+    line-height: 1.4;
+  }
+
+  /* Order CTA section */
+  .order-section {
+    max-width: 600px;
+    margin-bottom: 50px;
+    animation: slideDown 0.8s ease 0.5s forwards;
+    opacity: 0;
+    text-align: center;
+  }
+
+  .order-title {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    opacity: 0.8;
+    margin-bottom: 20px;
+  }
+
+  .order-cta {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 20px;
+  }
+
+  .btn-order {
+    padding: 14px 28px;
+    background: var(--accent-gold);
+    color: var(--primary-dark);
+    border: 1.5px solid var(--accent-gold);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 160px;
+  }
+
+  .btn-order:hover {
+    background: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+  }
+
+  .btn-order:active {
+    transform: translateY(0);
+  }
+
+  .btn-order.secondary {
+    background: transparent;
+    color: var(--accent-gold);
+    border: 1.5px solid var(--accent-gold);
+  }
+
+  .btn-order.secondary:hover {
+    background: rgba(212, 175, 55, 0.1);
+  }
+
+  /* Social links */
+  .social-section {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: slideDown 0.8s ease 0.6s forwards;
+    opacity: 0;
+  }
+
+  .social-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    opacity: 0.5;
+    margin-bottom: 18px;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .social-link {
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: var(--transition);
+    border-bottom: 2px solid transparent;
+    padding-bottom: 4px;
+  }
+
+  .social-link:hover {
+    opacity: 1;
+    border-bottom-color: var(--accent-gold);
+    transform: translateY(-2px);
+  }
+
+  /* Footer */
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    animation: slideUp 0.8s ease 0.7s forwards;
+    opacity: 0;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .footer-text {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    opacity: 0.4;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .wrapper {
+      padding: 30px 20px;
+      padding-bottom: 150px;
+    }
+
+    .header {
+      margin-bottom: 40px;
+    }
+
+    .brand-name {
+      letter-spacing: 4px;
+    }
+
+    .main-headline {
+      letter-spacing: -0.5px;
+    }
+
+    .scents-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 100%;
+      padding: 0;
+    }
+
+    .scent-item {
+      padding: 16px;
+    }
+
+    .scent-image {
+      height: 220px;
+    }
+
+    .order-cta {
+      padding: 0;
+    }
+
+    .btn-order {
+      min-width: 140px;
+      font-size: 12px;
+    }
+
+    .social-links {
+      gap: 12px;
+    }
+
+    .footer {
+      padding: 16px 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .wrapper {
+      padding: 24px 16px;
+      padding-bottom: 140px;
+    }
+
+    .header {
+      margin-bottom: 30px;
+    }
+
+    .logo-image {
+      max-width: 90px;
+    }
+
+    .brand-name {
+      font-size: 28px;
+      letter-spacing: 3px;
+      margin: 12px 0 4px;
+    }
+
+    .brand-tagline {
+      font-size: 12px;
+    }
+
+    .divider {
+      width: 50px;
+      margin: 28px auto;
+    }
+
+    .headline-section {
+      margin-bottom: 40px;
+    }
+
+    .main-headline {
+      font-size: 32px;
+      letter-spacing: -0.5px;
+    }
+
+    .subheadline {
+      font-size: 16px;
+    }
+
+    .description {
+      font-size: 14px;
+    }
+
+    .status-badge {
+      font-size: 10px;
+      padding: 6px 16px;
+      margin-bottom: 24px;
+    }
+
+    .scents-section {
+      margin-bottom: 40px;
+    }
+
+    .scents-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .scent-item {
+      padding: 16px;
+    }
+
+    .scent-image {
+      height: 240px;
+      max-width: 160px;
+    }
+
+    .scent-name {
+      font-size: 12px;
+    }
+
+    .scent-description {
+      font-size: 11px;
+    }
+
+    .order-section {
+      margin-bottom: 40px;
+    }
+
+    .order-title {
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+
+    .order-cta {
+      padding: 0;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-order {
+      width: 100%;
+      min-width: unset;
+      font-size: 12px;
+      padding: 12px 20px;
+    }
+
+    .social-label {
+      font-size: 11px;
+      margin-bottom: 14px;
+    }
+
+    .social-link {
+      font-size: 12px;
+    }
+
+    .footer {
+      padding: 14px 12px;
+      font-size: 9px;
+    }
+  }
+
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* Dark mode optimization */
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: var(--primary-dark);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-orbs">
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+</div>
+
+<div class="wrapper">
+
+  <div class="header">
+    <div class="logo-container">
+      <img src="/img/Untitled - May 23, 2026 at 18.54.34.png" alt="ScentBliss Logo" class="logo-image">
+    </div>
+    <h1 class="brand-name">ScentBliss</h1>
+    <p class="brand-tagline">Luxury In Every Drop</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="headline-section">
+    <span class="status-badge">Website Under Maintenance</span>
+    <h2 class="main-headline">We're <em>Refining</em> Our Experience</h2>
+    <p class="subheadline">Something beautiful is coming</p>
+    <p class="description">
+      Our website is being enhanced to bring you an even more luxurious shopping experience. 
+      Stay tuned for exclusive collections and premium fragrances.
+    </p>
+  </div>
+
+  <div class="scents-section">
+    <p class="scents-label">Our Signature Scents</p>
+    <div class="scents-grid">
+      <div class="scent-item">
+        <img src="/img/the royal 2.jpg" alt="The Royal Perfume" class="scent-image">
+        <div class="scent-dot"></div>
+        <p class="scent-name">The Royal</p>
+        <p class="scent-description">Bold, regal elegance in every spritz</p>
+      </div>
+      <div class="scent-item">
+        <img src="/img/pink aura new bottle.jpg" alt="Pink Aura Perfume" class="scent-image">
+        <div class="scent-dot"></div>
+        <p class="scent-name">Pink Aura</p>
+        <p class="scent-description">Soft, romantic, and utterly captivating</p>
+      </div>
+      <div class="scent-item">
+        <img src="/img/quality_restoration_20260102221557720.jpg" alt="Ramaha Perfume" class="scent-image">
+        <div class="scent-dot"></div>
+        <p class="scent-name">Ramaha</p>
+        <p class="scent-description">Exotic, mysterious, unforgettable</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="order-section">
+    <p class="order-title">Ready to Order?</p>
+    <div class="order-cta">
+      <a href="https://wa.me/923322267975" class="btn-order" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+      <a href="https://www.instagram.com/scentblisspk/" class="btn-order secondary" target="_blank" rel="noopener noreferrer">📸 Instagram</a>
+    </div>
+  </div>
+
+  <div class="social-section">
+    <p class="social-label">Connect With Us</p>
+    <div class="social-links">
+      <a href="https://www.instagram.com/scentblisspk/" class="social-link" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://www.facebook.com/ScentBlissofficial" class="social-link" target="_blank" rel="noopener noreferrer">Facebook</a>
+      <a href="https://wa.me/923322267975" class="social-link" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a href="mailto:scentbliss.official@gmail.com" class="social-link">Email</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p class="footer-text">© 2026 ScentBliss — Karachi, Pakistan</p>
+</div>
+
+<script>
+  // Add scroll detection for footer visibility on mobile
+  window.addEventListener('scroll', () => {
+    const footer = document.querySelector('.footer');
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+      footer.style.position = 'relative';
+    } else {
+      footer.style.position = 'fixed';
+    }
+  });
+</script>
+
+</body>
+</html>
